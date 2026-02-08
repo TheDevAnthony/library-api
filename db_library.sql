@@ -27,9 +27,9 @@ CREATE TABLE IF NOT EXISTS `db_library`.`books` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `title` VARCHAR(255) NOT NULL,
   `author` VARCHAR(255) NOT NULL DEFAULT 'Unknown',
-  `category` VARCHAR(255) NOT NULL DEFAULT 'BASE',
-  `number_of_pages` INT NULL DEFAULT NULL,
-  `publication_year` YEAR NULL DEFAULT NULL,
+  `category` INT NULL DEFAULT NULL,
+  `number_of_pages` INT NOT NULL,
+  `publication_year` YEAR NOT NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4;
