@@ -34,8 +34,7 @@ public class Book {
 
 	protected Book() {}
 	
-	public Book(long id, String title, String author, BookCategory category, int numberOfPages, int publicationYear) {
-		this.id = id;
+	public Book(String title, String author, BookCategory category, int numberOfPages, int publicationYear) {
 		this.title = title;
 		this.author = author;
 		this.category = category;
@@ -43,52 +42,21 @@ public class Book {
 		this.publicationYear = publicationYear;
 	}
 
-	public long getId() {
-		return id;
-	}
-	
-	public void setId(long id) {
-		this.id = id;
-	}
+	public long getId() { return id; }
 
-	public String getTitle() {
-		return title;
-	}
+	public String getTitle() { return title; }
+	public void setTitle(String title) { this.title = title; }
 
-	public void setTitle(String title) {
-		this.title = title;
-	}
+	public String getAuthor() { return author; }
+	public void setAuthor(String author) { this.author = author; }
 
-	public String getAuthor() {
-		return author;
-	}
+	public BookCategory getCategory() { return category; }
+	public void setCategory(BookCategory category) { this.category = category; }
 
-	public void setAuthor(String author) {
-		this.author = author;
-	}
+	public int getNumberOfPages() { return numberOfPages; }
+	public void setNumberOfPages(int numberOfPages) { this.numberOfPages = numberOfPages; }
 
-	public BookCategory getCategory() {
-		return category;
-	}
-
-	public void setCategory(BookCategory category) {
-		this.category = category;
-	}
-
-	public int getNumberOfPages() {
-		return numberOfPages;
-	}
-
-	public void setNumberOfPages(int numberOfPages) {
-		this.numberOfPages = numberOfPages;
-	}
-
-	public int getPublicationYear() {
-		return publicationYear;
-	}
-
-	public void setPublicationYear(int publicationYear) {
-		this.publicationYear = publicationYear;
-	}
+	public int getPublicationYear() { return publicationYear; }
+	public void setPublicationYear(int publicationYear) { this.publicationYear = publicationYear; }
 	
 }

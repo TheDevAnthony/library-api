@@ -13,24 +13,24 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.anthony.library_api.models.dtos.BookDTO;
-import com.anthony.library_api.models.entities.Book;
-import com.anthony.library_api.services.BookService;
+import com.anthony.library_api.models.dtos.CustomerDTO;
+import com.anthony.library_api.models.entities.Customer;
+import com.anthony.library_api.services.CustomerService;
 
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("/books")
-public class BookController {
+@RequestMapping("/customers")
+public class CustomerController {
 
-	private BookService service;
+	private CustomerService service;
 	
-	public BookController(BookService service) {
+	public CustomerController(CustomerService service) {
 		this.service = service;
 	}
 	
 	@GetMapping
-	public List<Book> getAll(@RequestParam Map<String, String> params) {
+	public List<Customer> getAll(@RequestParam Map<String, String> params) {
 		String filter = params.get("by");
 		String value = params.get("value");
 		
@@ -39,31 +39,31 @@ public class BookController {
 		}
 		
 		return switch (filter) {
-			case "title" -> service.findAllByTitle(value);
-			case "author" -> service.findAllByAuthor(value);
-			case "category" -> service.findAllByCategory(value);
+			case "name" -> service.findAllByName(value);
+			case "email" -> service.findAllByEmail(value);
+			case "phone" -> service.findAllByPhone(value);
 			default -> service.findAll();
 		};
 	}
 	
-	@GetMapping("/{bookId}")
-	public Book getById(@PathVariable long bookId) {
-		return service.findById(bookId);
+	@GetMapping("/{customerId}")
+	public Customer getById(@PathVariable long customerId) {
+		return service.findById(customerId);
 	}
 	
 	@PostMapping
-	public Book create(@Valid @RequestBody BookDTO body) {
+	public Customer create(@Valid @RequestBody CustomerDTO body) {
 		return service.create(body);
 	}
 	
-	@PutMapping("/{bookId}")
-	public Book update(@PathVariable long bookId, @Valid @RequestBody BookDTO body) {
-		return service.update(bookId, body);
+	@PutMapping("/{customerId}")
+	public Customer update(@PathVariable long customerId, @Valid @RequestBody CustomerDTO body) {
+		return service.update(customerId, body);
 	}
 	
-	@DeleteMapping("/{bookId}")
-	public void delete(@PathVariable long bookId) {
-		service.delete(bookId);
+	@DeleteMapping("/{customerId}")
+	public void delete(@PathVariable long customerId) {
+		service.delete(customerId);
 	}
 	
 }

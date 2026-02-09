@@ -1,4 +1,4 @@
-package com.anthony.library_api.models.dtos.book;
+package com.anthony.library_api.models.dtos;
 
 import com.anthony.library_api.models.BookCategory;
 
