@@ -3,6 +3,7 @@ package com.anthony.library_api.controllers;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -46,9 +47,9 @@ public class CustomerController {
 		};
 	}
 	
-	@GetMapping("/{customerId}")
-	public Customer getById(@PathVariable long customerId) {
-		return service.findById(customerId);
+	@GetMapping("/{id}")
+	public Customer get(@PathVariable long id) {
+		return service.findById(id);
 	}
 	
 	@PostMapping
@@ -56,14 +57,15 @@ public class CustomerController {
 		return service.create(body);
 	}
 	
-	@PutMapping("/{customerId}")
-	public Customer update(@PathVariable long customerId, @Valid @RequestBody CustomerDTO body) {
-		return service.update(customerId, body);
+	@PutMapping("/{id}")
+	public Customer update(@PathVariable long id, @Valid @RequestBody CustomerDTO body) {
+		return service.update(id, body);
 	}
 	
-	@DeleteMapping("/{customerId}")
-	public void delete(@PathVariable long customerId) {
-		service.delete(customerId);
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	@DeleteMapping("/{id}")
+	public void delete(@PathVariable long id) {
+		service.delete(id);
 	}
 	
 }

@@ -4,6 +4,8 @@ import com.anthony.library_api.models.BookCategory;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -23,6 +25,7 @@ public class Book {
 	@Column(name="author", nullable=false)
 	private String author;
 	
+	@Enumerated(EnumType.STRING)
 	@Column(name="category")
 	private BookCategory category;
 	

@@ -3,6 +3,7 @@ package com.anthony.library_api.controllers;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -46,9 +47,9 @@ public class BookController {
 		};
 	}
 	
-	@GetMapping("/{bookId}")
-	public Book getById(@PathVariable long bookId) {
-		return service.findById(bookId);
+	@GetMapping("/{id}")
+	public Book get(@PathVariable long id) {
+		return service.findById(id);
 	}
 	
 	@PostMapping
@@ -56,14 +57,15 @@ public class BookController {
 		return service.create(body);
 	}
 	
-	@PutMapping("/{bookId}")
-	public Book update(@PathVariable long bookId, @Valid @RequestBody BookDTO body) {
-		return service.update(bookId, body);
+	@PutMapping("/{id}")
+	public Book update(@PathVariable long id, @Valid @RequestBody BookDTO body) {
+		return service.update(id, body);
 	}
 	
-	@DeleteMapping("/{bookId}")
-	public void delete(@PathVariable long bookId) {
-		service.delete(bookId);
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	@DeleteMapping("/{id}")
+	public void delete(@PathVariable long id) {
+		service.delete(id);
 	}
 	
 }
