@@ -62,7 +62,7 @@ public class CustomerController {
 		return service.update(id, body);
 	}
 	
-	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	@PreAuthorize("hasRole('ADMIN')")
 	@DeleteMapping("/{id}")
 	public void delete(@PathVariable long id) {
 		service.delete(id);
