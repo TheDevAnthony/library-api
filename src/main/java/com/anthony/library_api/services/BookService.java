@@ -5,9 +5,12 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.anthony.library_api.models.dtos.BookDTO;
+import com.anthony.library_api.models.dtos.patching.PatchBookDTO;
 import com.anthony.library_api.models.entities.Book;
+import com.anthony.library_api.models.entities.BookCategory;
 import com.anthony.library_api.repositories.BookCategoryRepository;
 import com.anthony.library_api.repositories.BookRepository;
+import com.anthony.library_api.utils.ServiceUtils;
 
 @Service
 public class BookService {
@@ -45,7 +48,8 @@ public class BookService {
 		Book book = new Book(
 				body.title(),
 				body.author(),
-				bookCategoryRepo.findById(body.categoryId()).orElse(null),
+				bookCategoryRepo.findById(body.categoryId()).orElseThrow(
+						() -> new RuntimeException("Book category not found")),
 				body.numberOfPages(),
 				body.publicationYear()
 		);
@@ -56,12 +60,23 @@ public class BookService {
 	public Book update(long id, BookDTO body) {
 		Book book = findById(id);
 		
-		book.setTitle(body.title());
-		book.setAuthor(body.author());
-		book.setCategory(bookCategoryRepo.findById(body.categoryId()).orElse(null));
-		book.setNumberOfPages(body.numberOfPages());
-		book.setPublicationYear(body.publicationYear());
+		book.setCategory(bookCategoryRepo.findById(body.categoryId()).orElseThrow(
+				() -> new RuntimeException("Book category not found")));
 		
+		book = (Book) ServiceUtils.entityUpdate(book, body);
+		return bookRepo.save(book);
+	}
+	
+	public Book patch(long id, PatchBookDTO body) {
+		Book book = findById(id);
+		
+		if (body.categoryId() != null) {
+		    BookCategory category = bookCategoryRepo.findById(body.categoryId())
+		        .orElseThrow(() -> new RuntimeException("Book category not found"));
+		    book.setCategory(category);
+		}
+
+		book = (Book) ServiceUtils.entityUpdate(book, body);
 		return bookRepo.save(book);
 	}
 	

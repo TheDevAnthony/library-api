@@ -5,8 +5,10 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.anthony.library_api.models.dtos.CustomerDTO;
+import com.anthony.library_api.models.dtos.patching.PatchCustomerDTO;
 import com.anthony.library_api.models.entities.Customer;
 import com.anthony.library_api.repositories.CustomerRepository;
+import com.anthony.library_api.utils.ServiceUtils;
 
 @Service
 public class CustomerService {
@@ -51,12 +53,13 @@ public class CustomerService {
 	
 	public Customer update(long id, CustomerDTO body) {
 		Customer customer = findById(id);
-		
-		customer.setName(body.name());
-		customer.setEmail(body.email());
-		customer.setPhone(body.phone());
-		customer.setBirthday(body.birthday());
-		
+		ServiceUtils.entityUpdate(customer, body);
+		return repo.save(customer);
+	}
+
+	public Customer patch(long id, PatchCustomerDTO body) {
+		Customer customer = findById(id);
+		ServiceUtils.entityUpdate(customer, body);
 		return repo.save(customer);
 	}
 	

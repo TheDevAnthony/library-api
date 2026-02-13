@@ -6,6 +6,7 @@ import java.util.Map;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.anthony.library_api.models.dtos.BookDTO;
+import com.anthony.library_api.models.dtos.patching.PatchBookDTO;
 import com.anthony.library_api.models.entities.Book;
 import com.anthony.library_api.services.BookService;
 
@@ -60,6 +62,11 @@ public class BookController {
 	@PutMapping("/{id}")
 	public Book update(@PathVariable long id, @Valid @RequestBody BookDTO body) {
 		return service.update(id, body);
+	}
+	
+	@PatchMapping("/{id}")
+	public Book patch(@PathVariable long id, @Valid @RequestBody PatchBookDTO body) {
+		return service.patch(id, body);
 	}
 	
 	@PreAuthorize("hasRole('ADMIN')")

@@ -7,8 +7,10 @@ import org.springframework.stereotype.Service;
 
 import com.anthony.library_api.models.dtos.UserDTO;
 import com.anthony.library_api.models.dtos.auth.RegisterDTO;
+import com.anthony.library_api.models.dtos.patching.PatchUserDTO;
 import com.anthony.library_api.models.entities.User;
 import com.anthony.library_api.repositories.UserRepository;
+import com.anthony.library_api.utils.StringUtils;
 
 @Service
 public class UserService {
@@ -52,6 +54,19 @@ public class UserService {
 		user.setName(body.name());
 		user.setEmail(body.email());
 		user.setPassword(passwordEncoder.encode(body.password()));
+		
+		return repo.save(user);
+	}
+	
+	public User patch(long id, PatchUserDTO body) {
+		User user = findById(id);
+		
+		if (StringUtils.isValidString(body.name()))
+			user.setName(body.name());
+		if (body.email() != null)
+			user.setEmail(body.email());
+		if (StringUtils.isValidString(body.password()))
+			user.setPassword(passwordEncoder.encode(body.password()));
 		
 		return repo.save(user);
 	}
