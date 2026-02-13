@@ -4,7 +4,7 @@ import java.lang.reflect.Field;
 
 public class ServiceUtils {
 
-	public static Object entityUpdate(Object entity, Object dto) {
+	public static void entityUpdate(Object entity, Object dto) {
 		if (entity == null || dto == null)
             throw new IllegalArgumentException("Entity and DTO must not be null");
 		
@@ -29,8 +29,6 @@ public class ServiceUtils {
                 throw new RuntimeException(e);
             }
         }
-        
-        return entity;
 	}
 
 }
