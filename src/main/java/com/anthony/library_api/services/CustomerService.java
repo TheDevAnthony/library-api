@@ -34,7 +34,8 @@ public class CustomerService {
 	}
 	
 	public Customer findById(long id) {
-		return repo.findById(id).orElse(null);
+		return repo.findById(id).orElseThrow(
+				() -> new RuntimeException("Customer not found"));
 	}
 	
 	public Customer create(CustomerDTO body) {
@@ -50,9 +51,6 @@ public class CustomerService {
 	
 	public Customer update(long id, CustomerDTO body) {
 		Customer customer = findById(id);
-		
-		if (customer == null) 
-			throw new RuntimeException("Customer not found");
 		
 		customer.setName(body.name());
 		customer.setEmail(body.email());

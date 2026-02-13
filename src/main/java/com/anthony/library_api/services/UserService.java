@@ -22,11 +22,13 @@ public class UserService {
 	}
 	
 	public User findById(long id) {
-		return repo.findById(id).orElse(null);
+		return repo.findById(id).orElseThrow(
+				() -> new RuntimeException("User not found"));
 	}
 	
 	public User findByEmail(String email) {
-		return repo.findByEmail(email).orElse(null);
+		return repo.findByEmail(email).orElseThrow(
+				() -> new RuntimeException("User not found"));
 	}
 	
 	public List<User> findAll() {
@@ -46,9 +48,6 @@ public class UserService {
 	
 	public User update(long id, UserDTO body) {
 		User user = findById(id);
-		
-		if (user == null) 
-			throw new RuntimeException("User not found");
 		
 		user.setName(body.name());
 		user.setEmail(body.email());
