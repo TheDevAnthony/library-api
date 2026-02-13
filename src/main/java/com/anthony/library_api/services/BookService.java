@@ -63,7 +63,7 @@ public class BookService {
 		book.setCategory(bookCategoryRepo.findById(body.categoryId()).orElseThrow(
 				() -> new RuntimeException("Book category not found")));
 		
-		book = (Book) ServiceUtils.entityUpdate(book, body);
+		ServiceUtils.entityUpdate(book, body);
 		return bookRepo.save(book);
 	}
 	
@@ -76,7 +76,7 @@ public class BookService {
 		    book.setCategory(category);
 		}
 
-		book = (Book) ServiceUtils.entityUpdate(book, body);
+		ServiceUtils.entityUpdate(book, body);
 		return bookRepo.save(book);
 	}
 	
