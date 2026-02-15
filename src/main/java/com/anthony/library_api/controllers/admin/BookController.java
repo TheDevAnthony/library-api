@@ -1,9 +1,8 @@
-package com.anthony.library_api.controllers;
+package com.anthony.library_api.controllers.admin;
 
 import java.util.List;
 import java.util.Map;
 
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -69,7 +68,6 @@ public class BookController {
 		return service.patch(id, body);
 	}
 	
-	@PreAuthorize("hasRole('ADMIN')")
 	@DeleteMapping("/{id}")
 	public void delete(@PathVariable long id) {
 		service.delete(id);

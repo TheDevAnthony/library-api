@@ -20,11 +20,11 @@ import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/admin/users")
-public class AdminUserController {
+public class UserController {
 	
 	private UserService service;
 
-	public AdminUserController(UserService service) {
+	public UserController(UserService service) {
 		this.service = service;
 	}
 	
